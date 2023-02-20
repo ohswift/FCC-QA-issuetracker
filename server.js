@@ -20,10 +20,10 @@ app.use(cors({ origin: "*" })); //For FCC testing purposes only
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.use((req, res, next) => {
-//   console.log(`${req.method} ${req.path}`);
-//   next();
-// });
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.path}`);
+  next();
+});
 
 //Sample front-end
 app.route("/:project/").get(function (req, res) {

@@ -50,7 +50,8 @@ suite("Functional Tests", function () {
         created_by: "author3",
       })
       .end(function (err, res) {
-        assert.notEqual(res.status, 200);
+        assert.equal(res.status, 200);
+        assert.equal(res.body.error, "required field(s) missing");
         done();
       });
   });
@@ -112,7 +113,8 @@ suite("Functional Tests", function () {
       .put("/api/issues/apitest")
       .send({ issue_title: "t6", issue_text: "t6t6t6t6" })
       .end(function (err, res) {
-        assert.notEqual(res.status, 200);
+        assert.equal(res.status, 200);
+        assert.equal(res.body.error, "missing _id");
         done();
       });
   });
@@ -132,7 +134,7 @@ suite("Functional Tests", function () {
       .put("/api/issues/apitest")
       .send({ _id: 989898, issue_title: "t7" })
       .end(function (err, res) {
-        assert.notEqual(res.status, 200);
+        assert.equal(res.status, 200);
         done();
       });
   });
@@ -142,7 +144,7 @@ suite("Functional Tests", function () {
       .delete("/api/issues/apitest")
       .send({ _id: 989898 })
       .end(function (err, res) {
-        assert.notEqual(res.status, 200);
+        assert.equal(res.status, 200);
         done();
       });
   });
@@ -152,7 +154,8 @@ suite("Functional Tests", function () {
       .delete("/api/issues/apitest")
       .send({ issue_title: "t8" })
       .end(function (err, res) {
-        assert.notEqual(res.status, 200);
+        assert.equal(res.status, 200);
+        assert.equal(res.body.error, "missing _id");
         done();
       });
   });

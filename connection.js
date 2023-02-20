@@ -10,7 +10,7 @@ async function main(callback) {
     const IssueModel = mongoose.model(
       "issues",
       new mongoose.Schema({
-        projectname: { type: String, required: true },
+        project: { type: String, required: true },
         assigned_to: { type: String },
         status_text: { type: String },
         open: { type: Boolean },
@@ -49,9 +49,10 @@ async function main(callback) {
       //   console.log(issue_id, params);
       IssueModel.findOne({ _id: issue_id }, (err, doc) => {
         if (err) return done(err, null);
+        if (!doc) return done(new Error("missing"), null);
         Object.assign(doc, params);
         doc.save((err1, doc1) => {
-          if (err1) return console.error(err1);
+          if (err1) return done(err, null);
           done(null, doc1);
         });
       });
